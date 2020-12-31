@@ -1,17 +1,14 @@
 import RadioGroup from '@material-ui/core/RadioGroup';
 import React, { useEffect, useState } from 'react';
-import {
-  SDCQuestion,
-  SDCSelectOption,
-} from '../../../../../domain/sdcForm/SDCForm';
+import { SDCSelectOption } from '../../../../../domain/sdcForm/SDCForm';
 import { SDCFormResponse } from '../../../../../domain/sdcFormResponse/SDCFormResponse';
 import SDCSingleSelectOption from './SDCSingleSelectOption';
 
 interface SDCSingleSelectQuestionProps {
   formResponse: SDCFormResponse;
-  question: SDCQuestion;
   sdcSelectOptions: SDCSelectOption[];
   defaultOption?: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onChangeValue: Function;
 }
 
@@ -29,6 +26,7 @@ export default ({
     }
   }, [defaultOption, value]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleChange(e: any) {
     const selectedOptionId = sdcSelectOptions.find(
       (option) => option.text === e.target.value

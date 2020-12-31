@@ -42,7 +42,6 @@ export default ({
         <SDCSingleSelectQuestion
           onChangeValue={handleonQuestionAnswerChange}
           sdcSelectOptions={question.options}
-          question={question}
           formResponse={formResponse}
           defaultOption={defaultOption[0]}
         />

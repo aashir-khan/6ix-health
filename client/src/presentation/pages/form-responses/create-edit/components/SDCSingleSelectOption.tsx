@@ -12,6 +12,7 @@ interface SDCSingleSelectOptionProps {
   responseMode?: string;
   controlledQuestions?: SDCQuestion[];
   formResponse: SDCFormResponse;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onChangeValue: Function;
 }
 

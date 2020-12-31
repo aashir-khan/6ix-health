@@ -7,7 +7,7 @@ import SDCMultiSelectOption from './SDCMultiSelectOption';
 interface SDCMultiSelectQuestionProps {
   formResponse: SDCFormResponse;
   sdcSelectOptions: SDCSelectOption[];
-  defaultOptions?: string[];
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onChangeValue: Function;
 }
 export default ({
@@ -33,6 +33,7 @@ export default ({
       .map((option) => option.optionId);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleFormChange(e: any) {
     const value = e.target.value as string;
     const newSelected = selectedValues.includes(value)
