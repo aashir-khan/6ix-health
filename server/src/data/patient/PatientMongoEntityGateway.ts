@@ -12,7 +12,7 @@ interface Dependendencies {
 }
 export class PatientMongoEntityGateway implements IPatientEntityGateway {
   private connection: mongoose.Connection;
-  private PatientModel: mongoose.Model<PatientDocument, {}>;
+  private PatientModel: mongoose.Model<PatientDocument>;
 
   constructor({ mongoBaseURL }: Dependendencies) {
     this.connection = mongoose.createConnection(
