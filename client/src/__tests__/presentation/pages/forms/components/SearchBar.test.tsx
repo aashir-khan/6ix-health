@@ -1,28 +1,17 @@
 import React from 'react';
+import sinon from 'sinon';
 import { render, fireEvent } from '@testing-library/react';
 import SearchBar from '../../../../../presentation/pages/forms/components/SearchBar';
 
-jest.mock('lodash/debounce', () => jest.fn((fn) => fn));
-
+const spies: { [K: string]: sinon.SinonSpy } = {};
 describe('FormsPageController', () => {
-  let onQueryComplete: jest.Mock<
-    void,
-    [
-      {
-        queryText: string;
-        SDCFormIds: string[];
-        diagnosticProcedureIds: string[];
-      }
-    ]
-  >;
-
   beforeAll(() => {
-    onQueryComplete = jest.fn();
+    spies.onQueryComplete = sinon.spy();
   });
 
   test('should parse query and call callback', () => {
     const { getByRole } = render(
-      <SearchBar onQueryComplete={onQueryComplete} />
+      <SearchBar onQueryComplete={spies.onQueryComplete} />
     );
     const searchbox = getByRole('searchbox');
     fireEvent.change(searchbox, {
@@ -32,10 +21,12 @@ describe('FormsPageController', () => {
       },
     });
 
-    expect(onQueryComplete).toHaveBeenCalledWith({
-      SDCFormIds: ['abc1', 'abc2'],
-      queryText: 'this is a query',
-      diagnosticProcedureIds: ['xyz1', 'xyz2'],
-    });
+    expect(
+      spies.onQueryComplete.calledWith({
+        SDCFormIds: ['abc1', 'abc2'],
+        queryText: 'this is a query',
+        diagnosticProcedureIds: ['xyz1', 'xyz2'],
+      })
+    );
   });
 });
