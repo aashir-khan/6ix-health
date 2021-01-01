@@ -36,7 +36,7 @@ export const awaitHandlerFactory = (middleware: RequestHandler) => {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await middleware(req, res, next);
+      middleware(req, res, next);
     } catch (e) {
       next(e);
     }
@@ -44,7 +44,7 @@ export const awaitHandlerFactory = (middleware: RequestHandler) => {
 };
 
 abstract class BaseController {
-  protected abstract async processRequest(
+  protected abstract processRequest(
     req: DecodedExpressRequest,
     res: Response,
     next: NextFunction
@@ -55,7 +55,8 @@ abstract class BaseController {
     return awaitHandlerFactory(handler);
   }
 
-  protected ok<T>(res: Response, dto?: T): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected ok<T>(res: Response, dto?: T): Response<any> {
     if (dto) {
       res.type('application/json');
       return res.status(200).json(dto);
@@ -63,8 +64,8 @@ abstract class BaseController {
       return res.sendStatus(200);
     }
   }
-
-  protected fail(res: Response, error: Error | string): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected fail(res: Response, error: Error | string): Response<any> {
     // eslint-disable-next-line no-console
     console.log(error);
     return res.status(500).json({
@@ -72,41 +73,53 @@ abstract class BaseController {
     });
   }
 
-  protected badRequest(res: Response, message?: string): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected badRequest(res: Response, message?: string): Response<any> {
     return BaseController.jsonResponse(res, 400, {
       message: message && message !== '' ? message : 'bad request',
     });
   }
 
-  protected unauthorized(res: Response, message?: string): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected unauthorized(res: Response, message?: string): Response<any> {
     return BaseController.jsonResponse(res, 401, {
       message: message && message !== '' ? message : 'Unauthorized',
     });
   }
 
-  protected forbidden(res: Response, message?: string): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected forbidden(res: Response, message?: string): Response<any> {
     return BaseController.jsonResponse(res, 403, {
       message: message && message !== '' ? message : 'Forbidden',
     });
   }
 
-  protected notFound(res: Response, message?: string): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected notFound(res: Response, message?: string): Response<any> {
     return BaseController.jsonResponse(res, 404, {
       message: message && message !== '' ? message : 'Not found',
     });
   }
 
-  protected alreadyExists(res: Response, message?: string): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected alreadyExists(res: Response, message?: string): Response<any> {
     return BaseController.jsonResponse(res, 409, {
       message: message && message !== '' ? message : 'Already exists',
     });
   }
 
-  protected created(res: Response, payload: {} = {}): {} {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  protected created(res: Response, payload: any = {}): Response<any> {
     return BaseController.jsonResponse(res, 201, payload);
   }
 
-  protected static jsonResponse(res: Response, code: number, payload: {}): {} {
+  protected static jsonResponse(
+    res: Response,
+    code: number,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    payload: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Response<any> {
     return res.status(code).json(payload);
   }
 }
