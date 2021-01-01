@@ -6,6 +6,7 @@ interface NumberInputProps {
   suffixText?: string;
   defaultAnswer?: string;
   type: 'decimal' | 'integer';
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onChangeValue: Function;
 }
 

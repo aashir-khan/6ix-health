@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { date, random as fakerRandom } from 'faker';
 import { SDCFormResponseDTO } from '../../infrastructure/sdcFormResponse/SDCFormResponseDto';
 
 import AdrenalDefaultSDCFR from '../fixtures/sdcFormResponse/Adrenal.Bx.Res.129_3.003.001.REL_sdcFDFDefaultSDCFR.json';
 import AppendixDefaultSDCFR from '../fixtures/sdcFormResponse/Appendix.Res.135_3.002.001.REL_sdcFDFDefaultSDCFR.json';
+// eslint-disable-next-line camelcase
 import PKG_ACR_CT_STROKEDefaultSDCFR from '../fixtures/sdcFormResponse/PKG_ACR_CT_STROKEDefaultSDCFR.json';
+// eslint-disable-next-line camelcase
 import PKG_Lung_Surgery_CCODefaultSDCFR from '../fixtures/sdcFormResponse/PKG_Lung_Surgery_CCODefaultSDCFR.json';
+// eslint-disable-next-line camelcase
 import PKG_THYROID_USDefaultSDCFR from '../fixtures/sdcFormResponse/PKG_THYROID_USDefaultSDCFR.json';
 import forStudentsDefaultSDCFR from '../fixtures/sdcFormResponse/forStudentsDefaultSDCFR.json';
 
@@ -21,8 +23,11 @@ export class SDCFormResponseFactory {
     const randomResponse = fakerRandom.arrayElement([
       AdrenalDefaultSDCFR,
       AppendixDefaultSDCFR,
+      // eslint-disable-next-line camelcase
       PKG_ACR_CT_STROKEDefaultSDCFR,
+      // eslint-disable-next-line camelcase
       PKG_Lung_Surgery_CCODefaultSDCFR,
+      // eslint-disable-next-line camelcase
       PKG_THYROID_USDefaultSDCFR,
     ]);
     const response = JSON.parse(JSON.stringify(randomResponse));

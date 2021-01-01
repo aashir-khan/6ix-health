@@ -15,19 +15,24 @@ export interface SDCFormMetaData {
   GenericHeaderText: string;
   Category: string;
   OfficialName: string;
+  // eslint-disable-next-line camelcase
   CAP_ProtocolName: string;
+  // eslint-disable-next-line camelcase
   CAP_ProtocolVersion: string;
   TemplateID: string;
   Restrictions: string;
+  // eslint-disable-next-line camelcase
   CAP_Required: boolean;
   AccreditationDate: string;
   WebPostingDate: string;
   ShortName: string;
   ApprovalStatus: number;
+  // eslint-disable-next-line camelcase
   AJCC_Version: string;
 
   // From dummy SDC Form
   Approval: string;
+  // eslint-disable-next-line camelcase
   CTV_Dkey: string;
   ChecklistCKey: string;
   CurrentFileName: string;

@@ -12,6 +12,7 @@ const useStyles = makeStyles({
 
 interface DatePickerProps {
   suffixText?: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onChangeValue: Function;
 }
 export default ({

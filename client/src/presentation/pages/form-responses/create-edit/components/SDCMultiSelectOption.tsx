@@ -11,6 +11,7 @@ interface SDCMultiSelectOptionProps {
   responseMode?: string;
   formResponse: SDCFormResponse;
   controlledQuestions?: SDCQuestion[];
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onChangeValue: Function;
 }
 

@@ -5,6 +5,7 @@ import React from 'react';
 interface TextInputProps {
   suffixText?: string;
   defaultValue?: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onChangeValue: Function;
 }
 

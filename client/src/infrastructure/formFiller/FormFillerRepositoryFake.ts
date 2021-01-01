@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import FormFiller from '../../domain/formFiller/FormFiller';
 import { IFormFillerRepository } from '../../domain/formFiller/FormFillerRepository';
 import { FormFillerDTO } from './FormFillerDto';

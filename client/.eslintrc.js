@@ -1,4 +1,3 @@
-// .eslintrc.js
 module.exports = {
   plugins: ['jest'],
   extends: ['airbnb-typescript-prettier'],
@@ -16,9 +15,10 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-console': ['off'],
     'func-names': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-useless-constructor': 'off',
     'class-methods-use-this': 'off',
+    'react/require-default-props': 'off',
   },
   settings: {
     'import/resolver': {
@@ -37,4 +37,5 @@ module.exports = {
       },
     },
   ],
+  ignorePatterns: ['.eslintrc.js'],
 };

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import Patient from '../../domain/patient/Patient';
 import { IPatientRepository } from '../../domain/patient/PatientRepository';
 import { PatientDTO } from './PatientDto';

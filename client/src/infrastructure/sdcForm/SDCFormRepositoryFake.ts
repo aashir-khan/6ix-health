@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/camelcase */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import range from 'lodash/range';
-import { random as fakerRandom } from 'faker';
 import { SDCForm } from '../../domain/sdcForm/SDCForm';
 import { ISDCFormRepository } from '../../domain/sdcForm/SDCFormRepository';
 import { SDCFormFactory } from '../../mirage/factories/SDCForm';
 import { SDCFormDTO } from './SDCFormDto';
 import SDCFormMapper from './SDCFormMapper';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 interface Dependencies {
   sdcFormDb: PouchDB.Database<SDCFormDTO>;

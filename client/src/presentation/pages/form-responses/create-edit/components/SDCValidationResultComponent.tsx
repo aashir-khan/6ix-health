@@ -9,7 +9,7 @@ interface SDCValidationResultComponentProps {
 
 export default ({
   validationResultOrResponse,
-}: SDCValidationResultComponentProps): any => {
+}: SDCValidationResultComponentProps) => {
   if (validationResultOrResponse instanceof SDCFormResponse) {
     return <Typography>Success</Typography>;
   }
