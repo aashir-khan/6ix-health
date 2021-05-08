@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
 import { setupCache } from 'axios-cache-adapter';
-import { apiConfig } from '../config/api/api';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface ApiResponse<T = any> {
@@ -13,8 +12,8 @@ export class BaseAPI {
 
   private baseUrl: string;
 
-  constructor() {
-    this.baseUrl = apiConfig.baseUrl;
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl;
     const cache = setupCache({ maxAge: 15 * 60 * 1000 });
     this.axiosInstance = axios.create({
       adapter: cache.adapter,

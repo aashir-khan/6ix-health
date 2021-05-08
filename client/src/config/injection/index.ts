@@ -36,17 +36,8 @@ function configureInjection(
   });
 
   function configureEnvironmentSpecificDependencies() {
-    function registerProdDependencies() {
-      // register any production environment specific dependencies (classes/values/etc) here
-      generalInjection().registerProdDependencies(container);
-    }
-    function registerDevDependencies() {
-      // register any development environment specific dependencies (classes/values/etc) here
-      generalInjection().registerDevDependencies(container);
-    }
     function registerTestDependencies() {
       // register any test environment specific dependencies (classes/values/etc) here
-      generalInjection().registerTestDependencies(container);
       formFillerInjection(injectionOptions).registerTestDependencies(container);
       patientInjection(injectionOptions).registerTestDependencies(container);
       SDCFormInjection(injectionOptions).registerTestDependencies(container);
@@ -55,7 +46,9 @@ function configureInjection(
 
     function registerProdAndDevCommonDependencies() {
       // register any dependencies that are shared between production and development environments here
-      generalInjection().registerProdAndDevCommonDependencies(container);
+      generalInjection(environment).registerProdAndDevCommonDependencies(
+        container
+      );
       formFillerInjection(
         injectionOptions
       ).registerProdAndDevCommonDependencies(container);
@@ -72,12 +65,6 @@ function configureInjection(
 
     if (environment === 'production' || environment === 'development') {
       registerProdAndDevCommonDependencies();
-
-      if (environment === 'production') {
-        registerProdDependencies();
-      } else {
-        registerDevDependencies();
-      }
     } else {
       registerTestDependencies();
     }

@@ -1,34 +1,20 @@
-import { asClass, asValue, AwilixContainer } from 'awilix';
+import { asFunction, AwilixContainer } from 'awilix';
 import { EnvironmentTypes } from '.';
 import { BaseAPI } from '../../infrastructure/BaseApi';
 
 export type GeneralRegistrations = {
-  environmentMode: EnvironmentTypes;
   baseApi: BaseAPI;
 };
 
-export const generalInjection = () => ({
-  registerProdDependencies: (container: AwilixContainer) => {
-    container.register({
-      environmentMode: asValue('production'),
-    });
-  },
-
-  registerDevDependencies: (container: AwilixContainer) => {
-    container.register({
-      environmentMode: asValue('development'),
-    });
-  },
-
-  registerTestDependencies: (container: AwilixContainer) => {
-    container.register({
-      environmentMode: asValue('test'),
-    });
-  },
-
+export const generalInjection = (environment: EnvironmentTypes) => ({
   registerProdAndDevCommonDependencies: (container: AwilixContainer) => {
+    const baseUrl =
+      environment === 'production'
+        ? (process.env.REACT_APP_BASE_API_URL_PROD as string)
+        : (process.env.REACT_APP_BASE_API_URL_DEV as string);
+
     container.register({
-      baseApi: asClass(BaseAPI).singleton(),
+      baseApi: asFunction(() => new BaseAPI(baseUrl)).singleton(),
     });
   },
 });
