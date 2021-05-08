@@ -1,7 +1,7 @@
-import axios from 'axios';
 import sinon from 'sinon';
 import SDCFormRepositoryImpl from '../../../infrastructure/sdcForm/SDCFormRepositoryImpl';
 import { SDCForm } from '../../../domain/sdcForm/SDCForm';
+import { BaseAPI } from '../../../infrastructure/BaseApi';
 
 const mockedFile = <File>{ text: () => Promise.resolve('Some file contents') };
 
@@ -25,27 +25,28 @@ const mockedForms = [
 const stubs: { [K: string]: sinon.SinonStub } = {};
 describe('SDCFormRepositoryImpl', () => {
   let sdcFormRepository: SDCFormRepositoryImpl;
+  const baseApi = new BaseAPI();
 
   beforeAll(() => {
-    stubs.axiosDelete = sinon
-      .stub(axios, 'delete')
+    stubs.baseApiDelete = sinon
+      .stub(baseApi, 'delete')
       .resolves({ data: {}, status: 200 });
 
-    stubs.axiosGet = sinon
-      .stub(axios, 'get')
+    stubs.baseApiGet = sinon
+      .stub(baseApi, 'get')
       .resolves({ data: mockedForms, status: 200 });
 
-    stubs.axiosPost = sinon
-      .stub(axios, 'post')
+    stubs.baseApiPost = sinon
+      .stub(baseApi, 'post')
       .resolves({ data: {}, status: 200 });
 
-    stubs.axiosPut = sinon
-      .stub(axios, 'put')
+    stubs.baseApiPut = sinon
+      .stub(baseApi, 'put')
       .resolves({ data: mockedForms, status: 200 });
   });
 
   beforeEach(() => {
-    sdcFormRepository = new SDCFormRepositoryImpl();
+    sdcFormRepository = new SDCFormRepositoryImpl({ baseApi });
   });
 
   afterAll(() => {
@@ -61,8 +62,10 @@ describe('SDCFormRepositoryImpl', () => {
       expect(form).toBeInstanceOf(SDCForm);
 
       expect(
-        stubs.axiosPost.calledWith('/api/v1/SDCForm/', {
-          XMLString: 'Some file contents',
+        stubs.baseApiPost.calledWith('/api/v1/SDCForm/', {
+          data: {
+            XMLString: 'Some file contents',
+          },
         })
       ).toBeTruthy();
     });
@@ -73,7 +76,7 @@ describe('SDCFormRepositoryImpl', () => {
       const forms = await sdcFormRepository.getAllSDCForms();
 
       forms.map((form) => expect(form).toBeInstanceOf(SDCForm));
-      expect(stubs.axiosGet.calledWith('/api/v1/SDCForm/')).toBeTruthy();
+      expect(stubs.baseApiGet.calledWith('/api/v1/SDCForm/')).toBeTruthy();
     });
   });
 
@@ -84,7 +87,7 @@ describe('SDCFormRepositoryImpl', () => {
       forms.map((form) => expect(form).toBeInstanceOf(SDCForm));
 
       expect(
-        stubs.axiosGet.calledWith('/api/v1/SDCForm/', {
+        stubs.baseApiGet.calledWith('/api/v1/SDCForm/', {
           params: { SDCFormIds: ['1'] },
         })
       ).toBeTruthy();
@@ -102,7 +105,7 @@ describe('SDCFormRepositoryImpl', () => {
       forms.map((form) => expect(form).toBeInstanceOf(SDCForm));
 
       expect(
-        stubs.axiosGet.calledWith('/api/v1/SDCForm/', {
+        stubs.baseApiGet.calledWith('/api/v1/SDCForm/', {
           params: {
             SDCFormIds: 'abc-1,abc-2',
             diagnosticProcedureIds: 'xyz-1,xyz-2',
@@ -116,7 +119,7 @@ describe('SDCFormRepositoryImpl', () => {
       await sdcFormRepository.querySDCForms(['abc-1', 'abc-2'], [], '');
 
       expect(
-        stubs.axiosGet.calledWith('/api/v1/SDCForm/', {
+        stubs.baseApiGet.calledWith('/api/v1/SDCForm/', {
           params: { SDCFormIds: 'abc-1,abc-2' },
         })
       );
@@ -126,7 +129,7 @@ describe('SDCFormRepositoryImpl', () => {
       await sdcFormRepository.querySDCForms([], ['xyz-1', 'xyz-2'], '');
 
       expect(
-        stubs.axiosGet.calledWith('/api/v1/SDCForm/', {
+        stubs.baseApiGet.calledWith('/api/v1/SDCForm/', {
           params: { diagnosticProcedureIds: 'xyz-1,xyz-2' },
         })
       );
@@ -136,7 +139,7 @@ describe('SDCFormRepositoryImpl', () => {
       await sdcFormRepository.querySDCForms([], [], 'This is a query');
 
       expect(
-        stubs.axiosGet.calledWith('/api/v1/SDCForm/', {
+        stubs.baseApiGet.calledWith('/api/v1/SDCForm/', {
           params: { query: 'This is a query' },
         })
       );
@@ -151,9 +154,11 @@ describe('SDCFormRepositoryImpl', () => {
       expect(form).toBeInstanceOf(SDCForm);
 
       expect(
-        stubs.axiosPut.calledWith('/api/v1/SDCForm/', {
-          SDCFormId: 'id-1',
-          XMLString: 'Some file contents',
+        stubs.baseApiPut.calledWith('/api/v1/SDCForm/', {
+          data: {
+            SDCFormId: 'id-1',
+            XMLString: 'Some file contents',
+          },
         })
       );
     });
@@ -164,7 +169,7 @@ describe('SDCFormRepositoryImpl', () => {
       await sdcFormRepository.deleteSDCForm('id-1');
 
       expect(
-        stubs.axiosDelete.calledWith('/api/v1/SDCForm/', {
+        stubs.baseApiDelete.calledWith('/api/v1/SDCForm/', {
           params: { SDCFormIds: ['id-1'] },
         })
       );

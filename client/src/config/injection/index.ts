@@ -55,6 +55,7 @@ function configureInjection(
 
     function registerProdAndDevCommonDependencies() {
       // register any dependencies that are shared between production and development environments here
+      generalInjection().registerProdAndDevCommonDependencies(container);
       formFillerInjection(
         injectionOptions
       ).registerProdAndDevCommonDependencies(container);

@@ -1,8 +1,10 @@
-import { asValue, AwilixContainer } from 'awilix';
+import { asClass, asValue, AwilixContainer } from 'awilix';
 import { EnvironmentTypes } from '.';
+import { BaseAPI } from '../../infrastructure/BaseApi';
 
 export type GeneralRegistrations = {
   environmentMode: EnvironmentTypes;
+  baseApi: BaseAPI;
 };
 
 export const generalInjection = () => ({
@@ -21,6 +23,12 @@ export const generalInjection = () => ({
   registerTestDependencies: (container: AwilixContainer) => {
     container.register({
       environmentMode: asValue('test'),
+    });
+  },
+
+  registerProdAndDevCommonDependencies: (container: AwilixContainer) => {
+    container.register({
+      baseApi: asClass(BaseAPI).singleton(),
     });
   },
 });

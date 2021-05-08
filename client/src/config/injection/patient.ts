@@ -2,11 +2,11 @@ import { asClass, asFunction, AwilixContainer } from 'awilix';
 import { defaultInjectionOptions } from '.';
 import { IPatientRepository } from '../../domain/patient/PatientRepository';
 import { IPatientService } from '../../domain/patient/PatientService';
-import { patientDbCreator } from '../../infrastructure/patient/PatientDb';
 import { PatientDTO } from '../../infrastructure/patient/PatientDto';
 import { PatientRepositoryFake } from '../../infrastructure/patient/PatientRepositoryFake';
 import PatientRepositoryImpl from '../../infrastructure/patient/PatientRepositoryImpl';
 import PatientServiceImpl from '../../infrastructure/patient/PatientServiceImpl';
+import { patientDbCreator } from './creators';
 
 export type PatientRegistrations = {
   patientRepository: IPatientRepository;

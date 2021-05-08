@@ -6,7 +6,7 @@ import { FormFillerDTO } from '../../infrastructure/formFiller/FormFillerDto';
 import { FormFillerRepositoryFake } from '../../infrastructure/formFiller/FormFillerRepositoryFake';
 import FormFillerRepositoryImpl from '../../infrastructure/formFiller/FormFillerRepositoryImpl';
 import FormFillerServiceImpl from '../../infrastructure/formFiller/FormFIllerServiceImpl';
-import { formFillerDbCreator } from '../../infrastructure/formFiller/FormFillerDb';
+import { formFillerDbCreator } from './creators';
 
 export type FormFillerRegistrations = {
   formFillerRepository: IFormFillerRepository;
