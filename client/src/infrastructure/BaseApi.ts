@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { setupCache } from 'axios-cache-adapter';
 import { apiConfig } from '../config/api/api';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,7 +15,10 @@ export class BaseAPI {
 
   constructor() {
     this.baseUrl = apiConfig.baseUrl;
-    this.axiosInstance = axios.create({});
+    const cache = setupCache({ maxAge: 15 * 60 * 1000 });
+    this.axiosInstance = axios.create({
+      adapter: cache.adapter,
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,11 +27,13 @@ export class BaseAPI {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     { params }: { params?: any } = {}
   ): Promise<ApiResponse<T>> {
-    const { data, status } = await this.axiosInstance({
+    const { data, status, request } = await this.axiosInstance({
       method: 'GET',
       url: `${this.baseUrl}${url}`,
       params,
     });
+
+    console.log(request.fromCache);
 
     return { data, status };
   }

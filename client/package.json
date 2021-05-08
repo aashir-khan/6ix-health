@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.1.8",
     "awilix": "^4.3.4",
     "axios": "^0.21.1",
+    "axios-cache-adapter": "^2.7.3",
     "clsx": "^1.1.1",
     "dayjs": "^1.10.4",
     "faker": "^5.5.3",
