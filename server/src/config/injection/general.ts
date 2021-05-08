@@ -3,7 +3,6 @@ import { AppConfig, appConfigCreatingFunction } from 'config/AppConfig';
 import { ExpressApp } from 'entrypoint/web/ExpressApp';
 import { EnvironmentTypes } from '.';
 import dotenv from 'dotenv';
-import { assert } from 'console';
 
 export type GeneralRegistrations = {
   expressApp: ExpressApp;
@@ -13,25 +12,23 @@ export type GeneralRegistrations = {
 };
 
 export const generalInjection = () => {
-  const result = dotenv.config();
+  let MONGO_DB_CONNECTION_STRING_PROD: string;
+  let MONGO_DB_CONNECTION_STRING_DEV: string;
+  if ((process.env.NODE_ENV as string) !== 'production') {
+    const result = dotenv.config();
 
-  if (result.error || result.parsed === undefined) {
-    throw result.error;
+    if (result.error || result.parsed === undefined) {
+      throw result.error;
+    }
+
+    MONGO_DB_CONNECTION_STRING_PROD =
+      result.parsed.MONGO_DB_CONNECTION_STRING_PROD;
+    MONGO_DB_CONNECTION_STRING_DEV =
+      result.parsed.MONGO_DB_CONNECTION_STRING_DEV;
+  } else {
+    MONGO_DB_CONNECTION_STRING_PROD = process.env
+      .MONGO_DB_CONNECTION_STRING_PROD as string;
   }
-
-  const {
-    MONGO_DB_CONNECTION_STRING_PROD,
-    MONGO_DB_CONNECTION_STRING_DEV,
-  } = result.parsed;
-
-  assert(
-    MONGO_DB_CONNECTION_STRING_PROD !== undefined,
-    'MONGO_DB_CONNECTION_STRING_PROD not provided'
-  );
-  assert(
-    MONGO_DB_CONNECTION_STRING_DEV !== undefined,
-    'MONGO_DB_CONNECTION_STRING_DEV not provided'
-  );
 
   return {
     registerProdDependencies: (container: AwilixContainer) => {
