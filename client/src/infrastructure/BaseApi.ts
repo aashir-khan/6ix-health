@@ -27,13 +27,11 @@ export class BaseAPI {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     { params }: { params?: any } = {}
   ): Promise<ApiResponse<T>> {
-    const { data, status, request } = await this.axiosInstance({
+    const { data, status } = await this.axiosInstance({
       method: 'GET',
       url: `${this.baseUrl}${url}`,
       params,
     });
-
-    console.log(request.fromCache);
 
     return { data, status };
   }
