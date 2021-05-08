@@ -7,16 +7,16 @@ import { SDCFormResponse } from '../../../domain/sdcFormResponse/SDCFormResponse
 export const getAllSDCFormResponses = (): AppThunk => {
   return async function (dispatch) {
     dispatch(SDCFormResponseActions.onStartLoading());
-    const { sdcFormResponseService } = diContainer().cradle;
-    const SDCFormResponseData = await sdcFormResponseService.getAllSDCFormResponses();
+    const { sdcFormResponseRepository } = diContainer().cradle;
+    const SDCFormResponseData = await sdcFormResponseRepository.getAllSDCFormResponses();
     dispatch(SDCFormResponseActions.onGetSDCFormResponses(SDCFormResponseData));
   };
 };
 
 export const getDefaultAnswersForForm = (sdcForm: SDCForm): AppThunk => {
   return async function (dispatch) {
-    const { sdcFormResponseService } = diContainer().cradle;
-    const SDCFormData = await sdcFormResponseService.getDefaultAnswersForForm(
+    const { sdcFormResponseRepository } = diContainer().cradle;
+    const SDCFormData = await sdcFormResponseRepository.getDefaultAnswersForForm(
       sdcForm
     );
     dispatch(SDCFormResponseActions.onGetSDCFormResponses([SDCFormData]));
@@ -27,8 +27,8 @@ export const submitSDCFormResponse = (
   sdcFormResponse: SDCFormResponse
 ): AppThunk => {
   return async function (dispatch) {
-    const { sdcFormResponseService } = diContainer().cradle;
-    const responseOrValidationResults = await sdcFormResponseService.submitSDCFormResponse(
+    const { sdcFormResponseRepository } = diContainer().cradle;
+    const responseOrValidationResults = await sdcFormResponseRepository.submitSDCFormResponse(
       sdcFormResponse
     );
     dispatch(

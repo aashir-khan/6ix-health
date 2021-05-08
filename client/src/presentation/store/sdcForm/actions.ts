@@ -5,8 +5,8 @@ import { SDCForm } from '../../../domain/sdcForm/SDCForm';
 
 export const getAllSDCForms = (): AppThunk => {
   return async function (dispatch) {
-    const { sdcFormService } = diContainer().cradle;
-    const SDCFormData = await sdcFormService.getAllSDCForms();
+    const { sdcFormRepository } = diContainer().cradle;
+    const SDCFormData = await sdcFormRepository.getAllSDCForms();
     dispatch(SDCActions.onGetSDCFormsSuccess(SDCFormData));
   };
 };
@@ -19,7 +19,7 @@ export const querySDCForms = (
   } | null
 ): AppThunk => {
   return async function (dispatch) {
-    const { sdcFormService } = diContainer().cradle;
+    const { sdcFormRepository } = diContainer().cradle;
 
     dispatch(SDCActions.clearSearchResults());
 
@@ -30,7 +30,7 @@ export const querySDCForms = (
     dispatch(SDCActions.onStartSearch());
 
     try {
-      const SDCFormData = await sdcFormService.querySDCForms(
+      const SDCFormData = await sdcFormRepository.querySDCForms(
         data.SDCFormIds,
         data.diagnosticProcedureIds,
         data.queryText
@@ -45,8 +45,8 @@ export const querySDCForms = (
 
 export const addSDCForm = (sdcFormFile: File): AppThunk => {
   return async (dispatch) => {
-    const { sdcFormService } = diContainer().cradle;
-    const createdSDCForm = await sdcFormService.addSDCForm(sdcFormFile);
+    const { sdcFormRepository } = diContainer().cradle;
+    const createdSDCForm = await sdcFormRepository.addSDCForm(sdcFormFile);
     dispatch(SDCActions.onAddSDCForm(createdSDCForm));
   };
 };
@@ -57,8 +57,8 @@ export const updateSDCForm = (
   sdcFormFile: File
 ): AppThunk => {
   return async function (dispatch) {
-    const { sdcFormService } = diContainer().cradle;
-    const updatedSDCForm = await sdcFormService.updateSDCForm(
+    const { sdcFormRepository } = diContainer().cradle;
+    const updatedSDCForm = await sdcFormRepository.updateSDCForm(
       sdcForm,
       sdcFormFile
     );
@@ -68,8 +68,8 @@ export const updateSDCForm = (
 
 export const deleteSDCForm = (sdcForm: SDCForm): AppThunk => {
   return async function (dispatch) {
-    const { sdcFormService } = diContainer().cradle;
-    await sdcFormService.deleteSDCForm(...[sdcForm.SDCFormId]);
+    const { sdcFormRepository } = diContainer().cradle;
+    await sdcFormRepository.deleteSDCForm(...[sdcForm.SDCFormId]);
     dispatch(SDCActions.onDeleteSDCForm(sdcForm));
   };
 };

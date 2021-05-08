@@ -83,23 +83,6 @@ function configureInjection(
     }
   }
 
-  function registerEnvironmentIndependentDependencies() {
-    // configure any environment independent dependencies here
-    formFillerInjection(
-      injectionOptions
-    ).registerEnvironmentIndependentDependencies(container);
-    patientInjection(
-      injectionOptions
-    ).registerEnvironmentIndependentDependencies(container);
-    SDCFormInjection(
-      injectionOptions
-    ).registerEnvironmentIndependentDependencies(container);
-    SDCFormResponseInjection().registerEnvironmentIndependentDependencies(
-      container
-    );
-  }
-
-  registerEnvironmentIndependentDependencies();
   configureEnvironmentSpecificDependencies();
 
   return container;

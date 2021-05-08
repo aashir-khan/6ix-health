@@ -5,8 +5,8 @@ import Patient from '../../../domain/patient/Patient';
 
 export const addPatient = (patient: Patient): AppThunk => {
   return async function (dispatch) {
-    const { patientService } = diContainer().cradle;
-    const createdPatient = await patientService.addPatient(patient);
+    const { patientRepository } = diContainer().cradle;
+    const createdPatient = await patientRepository.addPatient(patient);
 
     dispatch(patientsActions.onAddPatient(createdPatient));
   };
@@ -14,24 +14,24 @@ export const addPatient = (patient: Patient): AppThunk => {
 
 export const getPatients = (): AppThunk => {
   return async function (dispatch) {
-    const { patientService } = diContainer().cradle;
-    const patientData = await patientService.getPatients();
+    const { patientRepository } = diContainer().cradle;
+    const patientData = await patientRepository.getPatients();
     dispatch(patientsActions.onGetPatients(patientData));
   };
 };
 
 export const updatePatient = (patient: Patient): AppThunk => {
   return async function (dispatch) {
-    const { patientService } = diContainer().cradle;
-    const updatedPatient = await patientService.updatePatient(patient);
+    const { patientRepository } = diContainer().cradle;
+    const updatedPatient = await patientRepository.updatePatient(patient);
     dispatch(patientsActions.onUpdatePatient(updatedPatient));
   };
 };
 
 export const deletePatient = (patient: Patient): AppThunk => {
   return async function (dispatch) {
-    const { patientService } = diContainer().cradle;
-    await patientService.deletePatient(patient);
+    const { patientRepository } = diContainer().cradle;
+    await patientRepository.deletePatient(patient);
     dispatch(patientsActions.onDeletePatient(patient));
   };
 };
