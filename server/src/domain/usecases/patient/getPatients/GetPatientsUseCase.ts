@@ -10,7 +10,8 @@ interface Dependencies {
   patientEntityGateway: IPatientEntityGateway;
 }
 
-export class GetPatientsUseCase implements UseCase<{}, GetPatientsResponseDTO> {
+export class GetPatientsUseCase
+  implements UseCase<Record<string, never>, GetPatientsResponseDTO> {
   patientEntityGateway: IPatientEntityGateway;
   constructor({ patientEntityGateway }: Dependencies) {
     this.patientEntityGateway = patientEntityGateway;

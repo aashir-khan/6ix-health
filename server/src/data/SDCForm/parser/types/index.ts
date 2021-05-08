@@ -254,7 +254,11 @@ export type Body = SDCXMLTag<{ ID: string }> &
 // Property must extend
 export type Property<T extends string = any> = SDCExtensionBaseType<T> &
   SDCXMLTag<PropertyAttributes<T>> & /** Strongly typed */ {
-    TypedValue?: SDCXMLTag & {} /** This will be one of the many supported data types of SDC. None of the SDC XML Examples provide this, so I will omit it for now. */;
+    TypedValue?: SDCXMLTag &
+      Record<
+        string,
+        unknown
+      > /** This will be one of the many supported data types of SDC. None of the SDC XML Examples provide this, so I will omit it for now. */;
   };
 
 /** @page 41 */
@@ -273,34 +277,34 @@ type DisplayedItem = SDCXMLTag<DisplayedItemAttributes & DisplayedType> &
   SDCExtensionBaseType<QuestionPropertyNameType>;
 
 /** Not implemented. */
-type BlobContent = SDCXMLTag<BlobContentAttributes> &
-  SDCExtensionBaseType & {
-    Description?: Array<Description> | Description;
-    Hash?: Array<Hash> | Hash;
-  } & (
-    | {
-        BinaryMediaBase64: Array<BinaryMediaBase64> | BinaryMediaBase64;
-      }
-    | {
-        BlobURI: Array<BlobURI> | BlobURI;
-      }
-  );
+// type BlobContent = SDCXMLTag<BlobContentAttributes> &
+//   SDCExtensionBaseType & {
+//     Description?: Array<Description> | Description;
+//     Hash?: Array<Hash> | Hash;
+//   } & (
+//     | {
+//         BinaryMediaBase64: Array<BinaryMediaBase64> | BinaryMediaBase64;
+//       }
+//     | {
+//         BlobURI: Array<BlobURI> | BlobURI;
+//       }
+//   );
 
 type BlobContentAttributes = {
   /** MIME type */
   mediaType: string;
   fileExtension?: string;
 };
-/** Not implemented. */
-type Description = SDCXMLTag;
-/** Not implemented. */
-type Hash = SDCXMLTag;
-/** Not implemented. */
-type BlobURI = SDCXMLTag;
-/** Not implemented. */
-type BinaryMediaBase64 = SDCXMLTag;
+// /** Not implemented. */
+// type Description = SDCXMLTag;
+// /** Not implemented. */
+// type Hash = SDCXMLTag;
+// /** Not implemented. */
+// type BlobURI = SDCXMLTag;
+// /** Not implemented. */
+// type BinaryMediaBase64 = SDCXMLTag;
 
-type Link = SDCXMLTag & SDCExtensionBaseType & {};
+// type Link = SDCXMLTag & SDCExtensionBaseType & {};
 
 type Contact = SDCXMLTag &
   SDCExtensionBaseType & {
@@ -455,7 +459,7 @@ export type ListItem = SDCXMLTag<
     ListItemResponseField?: ListItemResponseField;
   };
 
-type ButtonAction = SDCXMLTag<DisplayedItemAttributes & DisplayedType>;
+// type ButtonAction = SDCXMLTag<DisplayedItemAttributes & DisplayedType>;
 
 type IdentifiedExtensionType<E = SDCElement> = E & {
   /**
@@ -475,9 +479,9 @@ type IdentifiedExtensionType<E = SDCElement> = E & {
   baseURI: AnyURI;
 };
 
-type FormDesignProperty = Property<FormDesignPropertyNameType>;
-type QuestionProperty = Property<QuestionPropertyNameType>;
-type SectionProperty = Property<QuestionPropertyNameType>;
+// type FormDesignProperty = Property<FormDesignPropertyNameType>;
+// type QuestionProperty = Property<QuestionPropertyNameType>;
+// type SectionProperty = Property<QuestionPropertyNameType>;
 
 /**
  * @type {T = string} Generic decorator type

@@ -11,7 +11,7 @@ interface Dependencies {
 }
 
 export class GetFormFillersUseCase
-  implements UseCase<{}, GetFormFillersResponseDTO> {
+  implements UseCase<Record<string, never>, GetFormFillersResponseDTO> {
   formFillerEntityGateway: IFormFillerEntityGateway;
   constructor({ formFillerEntityGateway }: Dependencies) {
     this.formFillerEntityGateway = formFillerEntityGateway;

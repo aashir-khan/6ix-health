@@ -13,7 +13,7 @@ interface Dependendencies {
 export class FormFillerMongoEntityGateway implements IFormFillerEntityGateway {
   private connection: mongoose.Connection;
 
-  private FormFillerModel: mongoose.Model<FormFillerDocument, {}>;
+  private FormFillerModel: mongoose.Model<FormFillerDocument>;
   constructor({ mongoBaseURL }: Dependendencies) {
     this.connection = mongoose.createConnection(
       `${mongoBaseURL}/FormFiller?retryWrites=true&w=majority`,
