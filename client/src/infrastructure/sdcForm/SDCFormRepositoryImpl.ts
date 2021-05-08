@@ -1,16 +1,16 @@
 import { SDCForm } from '../../domain/sdcForm/SDCForm';
 import { ISDCFormRepository } from '../../domain/sdcForm/SDCFormRepository';
-import { BaseAPI } from '../BaseApi';
+import { IBaseAPI } from '../BaseApi';
 import { SDCFormDTO } from './SDCFormDto';
 import SDCFormMapper from './SDCFormMapper';
 
 const SDCFormApiURL = '/api/v1/SDCForm/';
 
 interface Dependencies {
-  baseApi: BaseAPI;
+  baseApi: IBaseAPI;
 }
 export default class SDCFormRepositoryImpl implements ISDCFormRepository {
-  private baseApi: BaseAPI;
+  private baseApi: IBaseAPI;
 
   constructor({ baseApi }: Dependencies) {
     this.baseApi = baseApi;

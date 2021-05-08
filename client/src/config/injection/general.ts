@@ -1,9 +1,9 @@
 import { asFunction, AwilixContainer } from 'awilix';
 import { EnvironmentTypes } from '.';
-import { BaseAPI } from '../../infrastructure/BaseApi';
+import { IBaseAPI, BaseAPI } from '../../infrastructure/BaseApi';
 
 export type GeneralRegistrations = {
-  baseApi: BaseAPI;
+  baseApi: IBaseAPI;
 };
 
 export const generalInjection = (environment: EnvironmentTypes) => ({

@@ -1,7 +1,8 @@
 import sinon from 'sinon';
 import SDCFormRepositoryImpl from '../../../infrastructure/sdcForm/SDCFormRepositoryImpl';
 import { SDCForm } from '../../../domain/sdcForm/SDCForm';
-import { BaseAPI } from '../../../infrastructure/BaseApi';
+import { mocksForTesting } from '../../../tests_util/mocks';
+import { factoriesForTesting } from '../../../tests_util/factories';
 
 const mockedFile = <File>{ text: () => Promise.resolve('Some file contents') };
 
@@ -25,28 +26,30 @@ const mockedForms = [
 const stubs: { [K: string]: sinon.SinonStub } = {};
 describe('SDCFormRepositoryImpl', () => {
   let sdcFormRepository: SDCFormRepositoryImpl;
-  const baseApi = new BaseAPI();
+  const mockBaseApi = mocksForTesting.getBaseApi();
 
   beforeAll(() => {
     stubs.baseApiDelete = sinon
-      .stub(baseApi, 'delete')
+      .stub(mockBaseApi, 'delete')
       .resolves({ data: {}, status: 200 });
 
     stubs.baseApiGet = sinon
-      .stub(baseApi, 'get')
+      .stub(mockBaseApi, 'get')
       .resolves({ data: mockedForms, status: 200 });
 
     stubs.baseApiPost = sinon
-      .stub(baseApi, 'post')
+      .stub(mockBaseApi, 'post')
       .resolves({ data: {}, status: 200 });
 
     stubs.baseApiPut = sinon
-      .stub(baseApi, 'put')
+      .stub(mockBaseApi, 'put')
       .resolves({ data: mockedForms, status: 200 });
   });
 
   beforeEach(() => {
-    sdcFormRepository = new SDCFormRepositoryImpl({ baseApi });
+    sdcFormRepository = factoriesForTesting.repositories.createSDCFormRepository(
+      mockBaseApi
+    );
   });
 
   afterAll(() => {

@@ -2,18 +2,18 @@ import { SDCForm } from '../../domain/sdcForm/SDCForm';
 import { FailureOnQuestionsResult } from '../../domain/sdcForm/SDCFormResponseValidationResult';
 import { SDCFormResponse } from '../../domain/sdcFormResponse/SDCFormResponse';
 import { ISDCFormResponseRepository } from '../../domain/sdcFormResponse/SDCFormResponseRepository';
-import { BaseAPI } from '../BaseApi';
+import { IBaseAPI } from '../BaseApi';
 import { SDCFormResponseDTO } from './SDCFormResponseDto';
 import SDCFormResponseMapper from './SDCFormResponseMapper';
 
 const SDCFormResponseApiURL = '/api/v1/SDCFormResponse';
 
 interface Dependencies {
-  baseApi: BaseAPI;
+  baseApi: IBaseAPI;
 }
 export default class SDCFormResponseRepositoryImpl
   implements ISDCFormResponseRepository {
-  private baseApi: BaseAPI;
+  private baseApi: IBaseAPI;
 
   constructor({ baseApi }: Dependencies) {
     this.baseApi = baseApi;

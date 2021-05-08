@@ -1,13 +1,40 @@
+/* eslint-disable max-classes-per-file */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance } from 'axios';
 import { setupCache } from 'axios-cache-adapter';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface ApiResponse<T = any> {
+export interface FunctionExtraParameters {
+  data?: any;
+  params?: any;
+}
+export interface ApiResponse<T = any> {
   data: T;
   status: number;
 }
 
-export class BaseAPI {
+export abstract class IBaseAPI {
+  abstract get<T = any>(
+    url: string,
+    extraParameters?: FunctionExtraParameters
+  ): Promise<ApiResponse<T>>;
+
+  abstract post<T = any>(
+    url: string,
+    extraParameters?: FunctionExtraParameters
+  ): Promise<ApiResponse<T>>;
+
+  abstract put<T = any>(
+    url: string,
+    extraParameters?: FunctionExtraParameters
+  ): Promise<ApiResponse<T>>;
+
+  abstract delete<T = any>(
+    url: string,
+    extraParameters?: FunctionExtraParameters
+  ): Promise<ApiResponse<T>>;
+}
+
+export class BaseAPI implements IBaseAPI {
   axiosInstance: AxiosInstance;
 
   private baseUrl: string;
@@ -20,11 +47,9 @@ export class BaseAPI {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async get<T = any>(
     url: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { params }: { params?: any } = {}
+    { params }: FunctionExtraParameters = {}
   ): Promise<ApiResponse<T>> {
     const { data, status } = await this.axiosInstance({
       method: 'GET',
@@ -35,11 +60,9 @@ export class BaseAPI {
     return { data, status };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async post<T = any>(
     url: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { data: _data, params }: { data?: any; params?: any } = {}
+    { data: _data, params }: FunctionExtraParameters = {}
   ): Promise<ApiResponse<T>> {
     const { data, status } = await this.axiosInstance({
       method: 'POST',
@@ -51,11 +74,9 @@ export class BaseAPI {
     return { data, status };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async put<T = any>(
     url: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { data: _data }: { data?: any } = {}
+    { data: _data }: FunctionExtraParameters = {}
   ): Promise<ApiResponse<T>> {
     const { data, status } = await this.axiosInstance({
       method: 'PUT',
@@ -66,11 +87,9 @@ export class BaseAPI {
     return { data, status };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async delete<T = any>(
     url: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { data: _data }: { data?: any } = {}
+    { data: _data }: FunctionExtraParameters = {}
   ): Promise<ApiResponse<T>> {
     const { data, status } = await this.axiosInstance({
       method: 'DELETE',

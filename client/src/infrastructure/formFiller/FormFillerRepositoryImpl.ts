@@ -1,16 +1,16 @@
 import FormFiller from '../../domain/formFiller/FormFiller';
 import { IFormFillerRepository } from '../../domain/formFiller/FormFillerRepository';
-import { BaseAPI } from '../BaseApi';
+import { IBaseAPI } from '../BaseApi';
 import { FormFillerDTO } from './FormFillerDto';
 import FormFillerMapper from './FormFillerMapper';
 
 const formFillerApiURL = '/api/v1/form-filler';
 
 interface Dependencies {
-  baseApi: BaseAPI;
+  baseApi: IBaseAPI;
 }
 export default class FormFillerRepositoryImpl implements IFormFillerRepository {
-  private baseApi: BaseAPI;
+  private baseApi: IBaseAPI;
 
   constructor({ baseApi }: Dependencies) {
     this.baseApi = baseApi;

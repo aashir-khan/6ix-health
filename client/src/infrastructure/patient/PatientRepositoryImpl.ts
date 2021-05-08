@@ -1,17 +1,17 @@
 import Patient from '../../domain/patient/Patient';
 import { IPatientRepository } from '../../domain/patient/PatientRepository';
-import { BaseAPI } from '../BaseApi';
+import { IBaseAPI } from '../BaseApi';
 import { PatientDTO } from './PatientDto';
 import PatientMapper from './PatientMapper';
 
 const patientApiURL = '/api/v1/patient';
 
 interface Dependencies {
-  baseApi: BaseAPI;
+  baseApi: IBaseAPI;
 }
 
 export default class PatientRepositoryImpl implements IPatientRepository {
-  private baseApi: BaseAPI;
+  private baseApi: IBaseAPI;
 
   constructor({ baseApi }: Dependencies) {
     this.baseApi = baseApi;
